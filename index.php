@@ -1,11 +1,45 @@
 <?php
-ini_set('display_errors', '0');
-ini_set('display_startup_errors', '0');
-//error_reporting(E_ALL);
+include_once "./inc/utils.php";
+include_once "./inc/start.php";
 
-define('SEP', DIRECTORY_SEPARATOR);
-define('ROOT', realpath('F:\\'));
-define('IGNORE', ['.', '..', 'server.log', 'index.php', '_start_.bat']);
+/**
+ * TODO: add micro Router
+ * 
+ * 1 - Scan directory: localhost/sc/<path-to-directory> (GET: relative to root path)
+ * 2 - Download file: localhost/dw/<path-to-file> (GET: pdf/docx/xls/ppt/css/html/etc)
+ * 3 - Stream file: localhost/st/<path-to-file> (GET: audio/video/image)
+ * 4 - Create file/directory: localhost/md | localhost/mf (POST + file upload)
+ * 5 - Delete file/directory: localhost/dd | localhost/df (DELETE)
+ * 
+ 		 	Future Features
+ 			===============
+ * 6 - Manager Personal DB Interface: localhost/mdb 
+ 		(GET: list of tables, POST: create table, DELETE: drop table)
+ * 
+ * 7 - Update audio/video player and image preview (future features)
+		Let's build a beautiful home media center
+ */
+
+
+// ROUTER ----------------------------------------------------------------------
+//(new Lib\Router())
+	// ->all('m/(.*)|m', '\Module\Message\Router')
+	// ->all('u/(.*)|u', '\Module\User\Router')
+	// ->all('f/(.*)|f', '\Module\File\Router')
+
+	//->get('meta/', '\Module\Utils\Metatag', 'getMeta')
+
+	//->resolve()
+	// ->e($_SERVER)
+	// ->e(["REQUEST_URI" => $_SERVER["REQUEST_URI"], "PATH_INFO" => $_SERVER["PATH_INFO"]])
+	// ->e(null, true);
+
+	//->e(null, true)
+
+	//->run();
+
+
+
 
 /* DOWNLOAD
 ------------------------------------------------------------------------------*/
@@ -26,8 +60,7 @@ if(trim($_SERVER['REQUEST_URI'], '/') != '' && count($_GET) == 0 )
 if(isset($_GET['file']) && $_GET['file'] != ""){
 	$file = realpath(ROOT . $_GET['file']);
 	if(is_file($file) && str_starts_with($file, ROOT)) {
-		include_once './inc/stream.php';
-		$stm = new Stream($file);
+		$stm = new Lib\Stream($file);
 		$stm->start();
 	}
 	exit;
@@ -37,71 +70,14 @@ if(isset($_GET['file']) && $_GET['file'] != ""){
 ------------------------------------------------------------------------------*/
 if(isset($_GET['scan']) && $_GET['scan'] != "") 
 {
-	$scan = realpath(ROOT . $_GET['scan']);
-	if(is_dir($scan) && str_starts_with($scan, ROOT)) 
-	{
-		$dd = [];
-		$df = [];
-		$s = scandir($scan);
-		foreach($s as $d){
-			if(in_array($d, IGNORE)) continue;
-				
-			if(is_dir($scan.'/'.$d)) {
-				array_push($dd, $d);
-			} else {
-				array_push($df, [
-					"name" => $d, 
-					"size" => human_filesize(filesize($scan.'/'.$d)),
-					"ext" => strtolower(pathinfo($scan.'/'.$d)['extension'] ?? '')
-				]);
-			}	
-		}
-
-		header('Content-Type: application/json');
-		exit(json_encode([
-			"dir" => $dd,
-			"file" => $df
-		]));
-	}
+	$dir = realpath(ROOT . $_GET['scan']);
+	if(is_dir($dir) && 
+		str_starts_with($dir, ROOT)) 
+			$scandir = new Lib\ScanDir($dir);
+			$scandir->scan();
+	
 	header("HTTP/1.0 404 Not Found");
 	exit;
-}
-
-/* UTILS
-------------------------------------------------------------------------------*/
-function human_filesize($bytes, $decimals = 2) {
-	$factor = floor((strlen($bytes) - 1) / 3);
-	if ($factor > 0) $sz = 'KMGT';
-	return sprintf("%.{$decimals}f&nbsp;", $bytes / pow(1024, $factor)) . @$sz[$factor - 1] . 'B';
-}
-
-function download ($file, $download = true) 
-{
-	$filename = basename($file);
-	$ext = explode('.', $filename);
-	$ext = strtolower(end($ext));
-
-	if($ext == 'css') $mimeType = 'text/css';
-	else if($ext == 'js') $mimeType = 'text/javascript';
-	else if($ext == 'svg') $mimeType = 'image/svg+xml';
-	else {
-		$mimeType = @mime_content_type($file);
-		$mimeType = $mimeType === false ? 'application/octet-stream' : $mimeType;
-	}
-
-	if($download) {
-		header('Content-Description: File Transfer');
-		header('Content-Disposition: attachment; filename="' . $filename . '"');
-	}
-	header("Content-Type: $mimeType");
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate');
-	header('Pragma: public');
-	header('Content-Length: ' . filesize($file));
-	flush();
-	readfile($file);
-
-	exit();
 }
 
 include_once './inc/index.html';
