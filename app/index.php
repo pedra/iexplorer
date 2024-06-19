@@ -1,6 +1,7 @@
 <?php
-include_once "./inc/utils.php";
-include_once "./inc/start.php";
+
+include_once __DIR__ . "/inc/utils.php";
+include_once __DIR__ . "/inc/start.php";
 
 /**
  * TODO: add micro Router
@@ -45,11 +46,13 @@ include_once "./inc/start.php";
 ------------------------------------------------------------------------------*/
 if(trim($_SERVER['REQUEST_URI'], '/') != '' && count($_GET) == 0 ) 
 {
-	$file = realpath(urldecode(__DIR__ . '/public' . $_SERVER['REQUEST_URI']));
+	$file = urldecode(__DIR__ . '/public' . $_SERVER['REQUEST_URI']);
 	if(is_file($file)) download($file, false);
 	
 	$file = urldecode(ROOT . trim($_SERVER['REQUEST_URI'], '/'));
 	if(is_file($file)) download($file);
+
+	exit('<pre>'.print_r($o, true).'</pre>');
 
 	header('Location: /');
 	exit;
@@ -80,4 +83,4 @@ if(isset($_GET['scan']) && $_GET['scan'] != "")
 	exit;
 }
 
-include_once './inc/index.html';
+include_once __DIR__ . '/inc/index.html';
