@@ -24,4 +24,4 @@ echo  ----------------------------------------------------------------------
 echo.
 echo.
 @explorer http://%myip%
-@php -S 0.0.0.0:80 %~dp0index.php
+@php -S 0.0.0.0:80 %~dp0iExplorer.phar

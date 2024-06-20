@@ -36,23 +36,23 @@ window.onload = () => {
 	getScan()
 }
 
-const getDir = (path = '') => domain + '/' + dir.join('/') + '/' + path
-const getPath = (path = '') => domain + '?path=' + dir.join('/') + '/' + path
-const getFile = (path = '') => domain + '?file=' + dir.join('/') + '/' + path
+const getDir = (path = '') => domain + '/scan/' + encodeURIComponent(dir.join('/') + '/' + path)
+const getFile = (path = '') => domain + '/stream/' + encodeURIComponent(dir.join('/') + '/' + path)
+const getDownload = (path = '') => domain + '/file/' + encodeURIComponent(dir.join('/') + '/' + path)
 
 const clickfolder = path => {
 	dir.push(path)
 	getScan()
 }
 
-const clickfile = (path, type) => {
+const clickfile = async (path, type) => {
 	vwbTitle.innerText = path
 	if (videoX.includes(type)) return playvideo(path)
 	if (audioX.includes(type)) return playaudio(path)
 	if (imageX.includes(type)) return imageview(path)
 
 	// Otherwise download the file...
-	location.href = getDir(path)
+	location.href = getDownload(path)
 }
 
 const clickBreadcumbs = e => {
@@ -71,40 +71,38 @@ const clickBreadcumbs = e => {
 }
 
 const mountBreadcumbs = () => {
-	const max = 60
+	const max = 70
 	let out = ''
 	if (dir.length > 0) out += '<li data-path="{back}"><span class="material-symbols-outlined">arrow_back</span></li>'
 	out += '<li data-path="{home}"><span class="material-symbols-outlined">home</span></li>'
-	if (dir.join(' / ').length > max) out += '<li data-path="{+}"><span class="material-symbols-outlined">add</span></li>'
-	// dir.map((d, i) => out += `<li data-path="${i}">${d}</li><span>/</span>`)
-	bcumb(max).map((d, i) => out += `<li data-path="${i}">${d}</li><span>/</span>`)
+
+	const start = bcumb(max)
+	if (start > 0) out += '<li data-path="{+}"><span class="material-symbols-outlined">add</span></li>'
+
+	console.log('Start: ' + start)
+	dir.map((d, i) => {
+		if (i >= start) out += `<li data-path="${i}">${d}</li><span class="material-symbols-outlined">keyboard_arrow_right</span>`
+	})
 	__('#breadcumbs').innerHTML = out
 	__e(e => clickBreadcumbs(e), '#breadcumbs li')
 }
 
 const bcumb = (max) => {
-	var l = dir.length
-	var i = 0
-	var r = []
-	for (var i = l; i >= 0; i--) {
-		var d = dir.slice(l - i)
-		j = d.join(' / ')
-		// console.log(i, d, j, j.length, j.length > 10 ? 'true' : 'false')
-		if (j.length <= max) {
-			r = d
-			break
-		}
+	const l = dir.length
+	for (let i = l; i >= 0; i--) {
+		let d = dir.slice(l - i)
+		if (d.join(' / ').length <= max) return (l - i)
 	}
-	console.log(r, j)
-	return r
+	return 0
 }
 
 
 const getScan = async () => {
 	let data = false
 	try {
-		const f = await fetch('/?scan=/' + dir.join('/').replace(/^\//, ''))
+		f = await fetch(getDir())
 		data = await f.json()
+		data = data && data.data ? data.data : []
 		files = data && data.dir && data.file ? data : []
 		mountFiles()
 		mountBreadcumbs()

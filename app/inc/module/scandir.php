@@ -1,13 +1,22 @@
 <?php
 
-namespace Lib;
+namespace Module;
 
 class Scandir {
 
 	private $dir = null;
+	private $path = null;
 
-	public function __construct($dir = '') {
-		$this->dir = $dir;
+	public function __construct() {
+		$this->path = ROOT . '/';
+	}
+
+	public function get($params)
+	{
+		$out = false;
+		$this->dir = $this->path . urldecode(($params[0] ?? '/'));
+		if(is_dir($this->dir)) $out = $this->scan();
+		return $out; 
 	}
 
 	public function scan() {
@@ -29,10 +38,9 @@ class Scandir {
 			}
 		}
 
-		header('Content-Type: application/json');
-		exit(json_encode([
+		return [
 			"dir" => $dd,
 			"file" => $df
-		]));
+		];
 	}
 }

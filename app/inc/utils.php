@@ -51,6 +51,12 @@ function debug($var, $exit = false)
 	if ($exit) exit(print_r($var, true));
 }
 
+function e($o = null, $exit = false)
+{
+	echo "<pre>" . print_r($o, 1) . "</pre>";
+	$exit && exit();
+}
+
 function myException($exception)
 {
 	ob_end_clean();

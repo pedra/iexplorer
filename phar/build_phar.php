@@ -5,10 +5,10 @@ if (file_exists('extract'))	delTree('extract');
 
 // Build
 $phar = new Phar('iExplorer.phar', 0, 'iExplorer.phar');
-$phar->buildFromDirectory(dirname(__FILE__) . '/app');
+$phar->buildFromDirectory(dirname(dirname(__FILE__)) . '/app');
 $phar->setStub($phar->createDefaultStub('index.php', 'index.php'));
 
-// Verify
+// Extract PHAR contents
 //$phar->extractTo(dirname(__FILE__) . '/extract');
 
 

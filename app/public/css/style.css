@@ -86,7 +86,7 @@ select,
 label,
 table,
 textarea {
-    font-size: 16px;
+    font-size: 14px;
     font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", system-ui, Roboto,
         "Helvetica Neue", Ubuntu, Tahoma, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
@@ -167,12 +167,13 @@ main {
     display: flex;
     flex: 1;
     overflow: auto;
+	scrollbar-gutter: stable;
 }
 
 header .container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     flex-wrap: wrap;
 }
@@ -266,6 +267,7 @@ header h1 {
 
 header span.material-symbols-outlined {
     color: var(--tertiary);
+	font-size: 20px;
 }
 
 /** MAIN
@@ -277,8 +279,8 @@ header span.material-symbols-outlined {
 .breadcumbs {
     list-style: none;
     display: flex;
-	flex-wrap: wrap;
-    padding: 0;
+	align-items: center;
+    flex-wrap: wrap;
 }
 
 .breadcumbs li {
@@ -297,8 +299,9 @@ header span.material-symbols-outlined {
 }
 
 .breadcumbs li + span {
-    margin: 0 0.2rem;
     color: #f00;
+    font-size: 16px;
+    line-height: 21px;
 }
 
 .breadcumbs li + span:last-child {
@@ -328,7 +331,7 @@ ul.files li {
 
 ul.files li:hover,
 ul.files li:active {
-    background: var(--white);
+    background: linear-gradient(45deg, transparent, var(--white), transparent);
 }
 
 ul.files li:hover a,

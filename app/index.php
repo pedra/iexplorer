@@ -21,66 +21,14 @@ include_once __DIR__ . "/inc/start.php";
 		Let's build a beautiful home media center
  */
 
-
 // ROUTER ----------------------------------------------------------------------
-//(new Lib\Router())
-	// ->all('m/(.*)|m', '\Module\Message\Router')
-	// ->all('u/(.*)|u', '\Module\User\Router')
-	// ->all('f/(.*)|f', '\Module\File\Router')
+(new Lib\Router())
+	->get('/', 				'\Module\Page', 'home')
 
-	//->get('meta/', '\Module\Utils\Metatag', 'getMeta')
+	->get('asset/(.*)', 	'\Module\File', 'asset')
+	->get('file/(.*)', 		'\Module\File', 'download')
+	->get('stream/(.*)', 	'\Module\File', 'stream')
 
-	//->resolve()
-	// ->e($_SERVER)
-	// ->e(["REQUEST_URI" => $_SERVER["REQUEST_URI"], "PATH_INFO" => $_SERVER["PATH_INFO"]])
-	// ->e(null, true);
+	->get('scan/(.*)|scan', '\Module\Scandir', 'get')
 
-	//->e(null, true)
-
-	//->run();
-
-
-
-
-/* DOWNLOAD
-------------------------------------------------------------------------------*/
-if(trim($_SERVER['REQUEST_URI'], '/') != '' && count($_GET) == 0 ) 
-{
-	$file = urldecode(__DIR__ . '/public' . $_SERVER['REQUEST_URI']);
-	if(is_file($file)) download($file, false);
-	
-	$file = urldecode(ROOT . trim($_SERVER['REQUEST_URI'], '/'));
-	if(is_file($file)) download($file);
-
-	exit('<pre>'.print_r($o, true).'</pre>');
-
-	header('Location: /');
-	exit;
-}
-
-/* STREAM FILES
------------------------------------------------------------------------------ */
-if(isset($_GET['file']) && $_GET['file'] != ""){
-	$file = realpath(ROOT . $_GET['file']);
-	if(is_file($file) && str_starts_with($file, ROOT)) {
-		$stm = new Lib\Stream($file);
-		$stm->start();
-	}
-	exit;
-}
-
-/* SCAN PATH
-------------------------------------------------------------------------------*/
-if(isset($_GET['scan']) && $_GET['scan'] != "") 
-{
-	$dir = realpath(ROOT . $_GET['scan']);
-	if(is_dir($dir) && 
-		str_starts_with($dir, ROOT)) 
-			$scandir = new Lib\ScanDir($dir);
-			$scandir->scan();
-	
-	header("HTTP/1.0 404 Not Found");
-	exit;
-}
-
-include_once __DIR__ . '/inc/index.html';
+	->run();

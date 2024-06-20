@@ -8,8 +8,8 @@ class Router
 	private $method = '';
 	private $path = [];
 
-	public $controller = '\Module\Index';
-	public $action = 'index';
+	public $controller = '\Module\Page';
+	public $action = 'home';
 	public $params = [];
 	public $queries = [];
 	public $error = false;
@@ -149,7 +149,7 @@ class Router
 		$error = $error === false ? $this->error : $error;
 
 		header('Content-Type: application/json');
-		if ($error) {
+		if ($error || $data === false) {
 			header('HTTP/1.1 404 Not Found');
 			ob_end_clean();
 		} else {

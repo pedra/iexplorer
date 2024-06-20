@@ -8,7 +8,7 @@ header("Access-Control-Allow-Origin: *");
 // header("Content-Security-Policy: connect-src *; default-src *");
 
 define('SEP', DIRECTORY_SEPARATOR);
-define('PATH_ROOT', dirname(__FILE__));
+define('PATH_ROOT', dirname(dirname(__FILE__)));
 define('ENV', parse_ini_file(PATH_ROOT . "/.env"));
 
 // Relative to Scan access
@@ -17,11 +17,11 @@ define('IGNORE', ['.', '..', 'server.log', 'index.php', '_start_.bat']);
 
 // AUTO LOADER -----------------------------------------------------------------
 spl_autoload_register(function ($class) {
-	$path = PATH_ROOT . '/' . strtolower(str_replace('\\', '/', $class) . '.php');
+	$path = PATH_ROOT . '/inc/' . strtolower(str_replace('\\', '/', $class) . '.php');
 	if (file_exists($path)) include_once $path;
 });
 
 // CACHE & SESSION -------------------------------------------------------------
-// ob_start("ob_gzhandler");
-// session_name("plm45022");
-// session_start();
+ob_start("ob_gzhandler");
+session_name("plm45022");
+session_start();
