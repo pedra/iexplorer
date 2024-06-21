@@ -1,0 +1,70 @@
+/** View Box
+----------------------------------------------------------------------------- */
+.vwb-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	position: fixed;
+	inset: 0;
+	z-index: -100;
+
+	background: rgb(0 0 0 / 87%);
+	
+	transition: .2s;
+	opacity: 0;
+	transform: scale(0);
+}
+
+.vwb-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--yellow);
+	padding: 0 1rem;
+}
+
+.vwb-box span {
+    cursor: pointer;
+    background: var(--red-dark);
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.vwb-view {
+    display: flex;
+}
+
+.vwb-box video,
+.vwb-box audio,
+.vwb-box img {
+	max-width: 100%;
+	max-height: calc(100vh - 116px);
+	
+	transition: 0.3s 0.2s;
+	opacity: 0;
+	transform: scale(0);
+	height: 0;	
+	margin: 1rem 0 0 0;
+}
+
+.vwb-box.on {
+	z-index: 10000;
+	transform: none;
+	opacity: 1;
+}
+
+.vwb-box.on.video video,
+.vwb-box.on.audio audio,
+.vwb-box.on.image img {
+	transform: none;
+	opacity: 1;
+	height: auto;
+}
+
+.vwb-box.on.audio audio {
+	height: 30px;
+	width: 560px;
+    max-width: calc(100% - 2rem);
+}

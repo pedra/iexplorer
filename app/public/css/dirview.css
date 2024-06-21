@@ -1,0 +1,53 @@
+/** Directory View
+----------------------------------------------------------------------------- */
+.dir-view {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.dir-view li {
+    padding: .5rem 0;
+    display: flex;
+    align-items: flex-start;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+	border-bottom: 1px dashed var(--white-7);
+}
+
+.dir-view li:hover,
+.dir-view li:active {
+    background: linear-gradient(45deg, transparent, var(--white), transparent);
+}
+
+.dir-view li:hover a,
+.dir-view li:active a {
+    color: var(--blue-dark);
+}
+
+.dir-view li span.material-symbols-outlined {
+    margin: 0 .5rem 0 0;
+    color: var(--blue-dark);
+}
+
+.dir-view li.dir-folder i {
+    color: var(--orange);
+}
+
+.dir-view li a {
+    text-decoration: none;
+    color: var(--black);
+    font-size: 1.2rem;
+}
+
+.dir-view li .dir-title {
+	display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.dir-view li .dir-info {
+	font-size: .8rem;
+	overflow-wrap: normal;
+}

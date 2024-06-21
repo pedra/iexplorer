@@ -1,6 +1,6 @@
 import { __, __e, __c, __glass } from "/asset/js/utils.js"
 
-export default class BMenu {
+export default class BMenuClass {
 
 	eBMenu = null
 	eContainer = null
@@ -27,7 +27,7 @@ export default class BMenu {
 		this.eUpload.onclick = () => this.goUpload()
 
 		this.eDelete = __c('li', {}, 'Delete')
-		this.eDelete.append(__c('span', { class: 'material-symbols-outlined' }, 'delete'))
+		this.eDelete.append(__c('span', { class: 'material-symbols-outlined' }, 'delete_forever'))
 		this.eDelete.onclick = () => this.goDelete()
 	}
 
@@ -40,15 +40,23 @@ export default class BMenu {
 	}
 
 	goHome () {
-		window.location.href = '/'
+		App.Browser.goHome()
 	}
 
 	goBack () {
-		window.history.back()
+		App.Browser.goBack()
 	}
 
 	goUpload () {
-		alert('<< TODO >>\n\n1 - Upload\n2 - Download files\n3 - Ícone para download de video/audio/image\n4 - Validar arquivo ".env" - adicionar ROOT path')
+		alert(
+			'<< TODO >>\n\n'+
+				'1 - Upload\n'+
+				'2 - Download files [✔]\n'+
+				'3 - Ícone para download de video/audio/image [✔]\n'+
+				'4 - Validar arquivo ".env" - adicionar ROOT path\n'+
+				'5 - Selecionar arquivos\n'+
+				'6 = Criar playlist com selecionados e salvar como arquivo json'
+			)
 	}
 
 	goDelete () {

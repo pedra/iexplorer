@@ -1,0 +1,33 @@
+/** BREADCRUMBS - BEGIN
+----------------------------------------------------------------------------- */
+.breadcrumbs {
+    list-style: none;
+    display: flex;
+	align-items: center;
+    flex-wrap: wrap;
+}
+
+.breadcrumbs li {
+    cursor: pointer;
+    color: var(--black);
+    font-weight: 500;
+    display: flex;
+}
+
+.breadcrumbs li:hover {
+    color: var(--blue-dark);
+}
+
+.breadcrumbs li:has(span) {
+    margin: 0 0.5rem 0 0;
+}
+
+.breadcrumbs li + span {
+    color: var(--red);
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.breadcrumbs li + span:last-child {
+    display: none;
+}

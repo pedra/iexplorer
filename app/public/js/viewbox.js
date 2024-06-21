@@ -1,6 +1,6 @@
 import { __, __e, __c } from "/asset/js/utils.js"
 
-export default class ViewBox {
+export default class ViewBoxClass {
 
 	eBox = null
 	eContainer = null
@@ -19,14 +19,16 @@ export default class ViewBox {
 
 		this.eTitle = __c('h3')		
 		const close = __c('span', { class: 'material-symbols-outlined' }, 'close')
+		const download = __c('span', { class: 'material-symbols-outlined' }, 'download')
 		
 		close.onclick = () => this.hide()
+		download.onclick = () => this.download()
 		this.eBox.onclick = (e) => {
 			if(e.target.classList.contains('vwb-box')) this.hide()
 		}
 		
 		const boxTitle = __c('div', { class: 'vwb-title' })
-		boxTitle.append(this.eTitle, close)
+		boxTitle.append(this.eTitle, close, download)
 
 		this.eView = __c('div', { class: 'vwb-view' })
 		this.eBox.append(boxTitle, this.eView)	
@@ -60,5 +62,10 @@ export default class ViewBox {
 		this.players[type].src = source
 		this.eView.append(this.players[type])
 		this.eBox.classList.add('on', type)
+	}
+
+	download() {
+		this.hide()
+		App.Browser.download(this.eTitle.innerText)
 	}
 }

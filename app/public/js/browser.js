@@ -121,11 +121,13 @@ class BrowserClass {
 	goBack() {
 		this.path.pop()
 		this.scan()
+		// TODO: add navigation like -> window.history.back()
 	}
 
 	goHome() {
 		this.path = []
 		this.scan()
+		// TODO: add navigation like -> window.location.href = '/'
 	}
 
 	goPlus() {
@@ -153,12 +155,17 @@ class BrowserClass {
 				return true
 			}
 		}
-		return false
+		// Otherwise download the file...
+		this.download(name)
 	}
 
 	goDir(id) {
 		this.path.push(this.data.dir[id])
 		this.scan()
+	}
+
+	download(name) {
+		location.href = this.getDownload(name)
 	}
 
 }

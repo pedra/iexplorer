@@ -1,27 +1,25 @@
-import ViewBox from "/asset/js/viewbox.js"
-import BMenu from "/asset/js/bmenu.js"
-// import Directory from "/asset/js/directory.js"
-import Browser from "/asset/js/browser.js"
+import ViewBoxClass from "/asset/js/viewbox.js"
+import BMenuClass from "/asset/js/bmenu.js"
+import browser from "/asset/js/browser.js"
 
 
 class App {
 
 	VBox = null
-	BMnu = null
+	BMenu = null
 	Dir = null
-	Brow = null
+	Browser = null
 
 	constructor() {
-		this.Brow = Browser
-		this.VBox = new ViewBox()
-		this.BMnu = new BMenu(this.Brow)
+		this.Browser = browser
+		this.VBox = new ViewBoxClass()
+		this.BMenu = new BMenuClass()
 	}
 
 	async start() {
-		this.BMnu.mount()
+		this.BMenu.mount()
 		this.VBox.mount()		
-		this.Brow.mount()
-		
+		this.Browser.mount()		
 	}
 }
 
