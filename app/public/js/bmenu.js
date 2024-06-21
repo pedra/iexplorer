@@ -48,7 +48,7 @@ export default class BMenu {
 	}
 
 	goUpload () {
-		alert('<< TODO >>\n\n1 - Upload\n2 - Download files\n3 - Ícone para download de video/audio/image')
+		alert('<< TODO >>\n\n1 - Upload\n2 - Download files\n3 - Ícone para download de video/audio/image\n4 - Validar arquivo ".env" - adicionar ROOT path')
 	}
 
 	goDelete () {
