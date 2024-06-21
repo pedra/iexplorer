@@ -32,6 +32,10 @@ class BrowserClass {
 		this.eContainer.innerHTML = ''
 		this.eContainer.append(this.eBreadcrumb)
 		this.scan()
+
+		setTimeout(() => {
+			this.eBreadcrumb.classList.add('on')
+		}, 200)
 	}
 
 	getDir(path = '') {
