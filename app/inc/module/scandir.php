@@ -39,6 +39,7 @@ class Scandir {
 		}
 
 		return [
+			"path" => str_replace($this->path, '', $this->dir),
 			"dir" => $dd,
 			"file" => $df
 		];

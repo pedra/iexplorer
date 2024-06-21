@@ -1,3 +1,4 @@
+
 let domain = location.origin,
 	files = [],
 	vwbBox, vwbVideo, vwbAudio, vwbImg,
@@ -16,9 +17,16 @@ const videoX = ['mp4', 'mkv', 'mov', 'avi'],
 			(e == 'document' || !e || e == "" || e == null ? document : __(e, true))
 		if (c == null || c.length == 0) return false
 		return (!c[0] ? [c] : c).forEach(x => x.addEventListener(v, a))
+	},
+	__c = (type = 'div', a = {}, content = null) => {
+		const e = document.createElement(type)
+		if(content) e.innerHTML = content
+		for(x in a)	e.setAttribute(x, a[x])
+		return e
 	}
 
 window.onload = () => {
+
 	vwbBox = __('.vwb-box')
 	vwbTitle = __('.vwb-title h3')
 	vwbVideo = __('.vwb-box video')
@@ -115,7 +123,7 @@ const mountFiles = () => {
 	if (files && files.dir && files.file) {
 		let out = ''
 		files.dir.map((d, i) => {
-			out += `<li id="dir-${i}" class="file-folder" onclick="clickfolder('${d}')"><span class="material-symbols-outlined">folder</span><div class="filetitle"><span>${d}</span></div></li>`
+			out += `<li id="dir-${i}" class="dir-folder" onclick="clickfolder('${d}')"><span class="material-symbols-outlined">folder</span><div class="dir-title"><span>${d}</span></div></li>`
 		})
 
 		files.file.map((f, i) => {
@@ -125,9 +133,9 @@ const mountFiles = () => {
 			if (imageX.includes(f.ext)) icon = 'image'
 			if (zipX.includes(f.ext)) icon = 'folder_zip'
 
-			out += `<li id="file-${i}" onclick="clickfile('${f.name}', '${f.ext}')"><span class="material-symbols-outlined">${icon}</span><div class="filetitle"><span>${f.name}</span><span class="fileinfo">${f.size}</span></div></li>`
+			out += `<li id="file-${i}" onclick="clickfile('${f.name}', '${f.ext}')"><span class="material-symbols-outlined">${icon}</span><div class="dir-title"><span>${f.name}</span><span class="dir-info">${f.size}</span></div></li>`
 		})
-		__("#files").innerHTML = out
+		__("#dir-view").innerHTML = out
 	}
 }
 

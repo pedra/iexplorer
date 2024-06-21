@@ -274,49 +274,49 @@ header span.material-symbols-outlined {
 ----------------------------------------- */
 
 
-/** BREADCUMBS - BEGIN
+/** BREADCRUMBS - BEGIN
 ----------------------------------------- */
-.breadcumbs {
+.breadcrumbs {
     list-style: none;
     display: flex;
 	align-items: center;
     flex-wrap: wrap;
 }
 
-.breadcumbs li {
+.breadcrumbs li {
     cursor: pointer;
     color: #000;
     font-weight: 500;
     display: flex;
 }
 
-.breadcumbs li:hover {
+.breadcrumbs li:hover {
     color: #01d;
 }
 
-.breadcumbs li:has(span) {
+.breadcrumbs li:has(span) {
     margin: 0 0.5rem 0 0;
 }
 
-.breadcumbs li + span {
+.breadcrumbs li + span {
     color: #f00;
     font-size: 16px;
     line-height: 21px;
 }
 
-.breadcumbs li + span:last-child {
+.breadcrumbs li + span:last-child {
     display: none;
 }
 
 
 /** FILE LIST
 ----------------------------------------- */
-ul.files {
+.dir-view {
     list-style: none;
     padding: 1rem 0;
 }
 
-ul.files li {
+.dir-view li {
     padding: .5rem 0;
     /* margin: 0 0 .5rem 0; */
     display: flex;
@@ -329,32 +329,32 @@ ul.files li {
 	border-bottom: 1px dashed #bbb;
 }
 
-ul.files li:hover,
-ul.files li:active {
+.dir-view li:hover,
+.dir-view li:active {
     background: linear-gradient(45deg, transparent, var(--white), transparent);
 }
 
-ul.files li:hover a,
-ul.files li:active a {
+.dir-view li:hover a,
+.dir-view li:active a {
     color: var(--blue-dark);
 }
 
-ul.files li span.material-symbols-outlined {
+.dir-view li span.material-symbols-outlined {
     margin: 0 .5rem 0 0;
     color: var(--blue-dark);
 }
 
-ul.files li.file-folder i {
+.dir-view li.dir-folder i {
     color: var(--orange);
 }
 
-ul.files li a {
+.dir-view li a {
     text-decoration: none;
     color: var(--black);
     font-size: 1.2rem;
 }
 
-ul.files li .filetitle {
+.dir-view li .dir-title {
 	display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -362,7 +362,7 @@ ul.files li .filetitle {
     width: 100%;
 }
 
-ul.files li .fileinfo {
+.dir-view li .dir-info {
 	font-size: .8rem;
 	overflow-wrap: normal;
 }
@@ -431,6 +431,10 @@ footer .bmenu li span {
     padding: 0.5rem;
 }
 
+.vwb-view {
+    display: flex;
+}
+
 .vwb-box video,
 .vwb-box audio,
 .vwb-box img {
@@ -440,7 +444,8 @@ footer .bmenu li span {
 	transition: 0.3s 0.2s;
 	opacity: 0;
 	transform: scale(0);
-	height: 0;
+	height: 0;	
+	margin: 1rem 0 0 0;
 }
 
 .vwb-box.on {
@@ -451,7 +456,7 @@ footer .bmenu li span {
 
 .vwb-box.on.video video,
 .vwb-box.on.audio audio,
-.vwb-box.on.img img {
+.vwb-box.on.image img {
 	transform: none;
 	opacity: 1;
 	height: auto;
@@ -459,4 +464,28 @@ footer .bmenu li span {
 
 .vwb-box.on.audio audio {
 	height: 30px;
+	width: 560px;
+    max-width: calc(100% - 2rem);
+}
+
+
+/* UTILS
+------------------------------------------------------------------------------*/
+.__glass {
+	position: fixed;
+	inset: 0;
+	z-index: -100;
+	transition: 0.6s;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.__glass img {
+    width: 100px;
+    height: 100px;
+}
+.__glass.on {
+	transition: 3s;
+	z-index: 20000;
+	backdrop-filter: blur(26px);
 }

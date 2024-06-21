@@ -8,43 +8,29 @@
 	<link rel="shortcut icon" href="/asset/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="/asset/css/font.css">
 	<link rel="stylesheet" href="/asset/css/style.css">
-	<script src="/asset/js/main.js" defer></script>
+	<script src="/asset/js/app.js" defer type="module"></script>
 </head>
 
 <body>
 	<header>
 		<div class="container">
-			<h1>iExplorer</h1>
-			<ul class="breadcumbs" id="breadcumbs"></ul>
+			<h1>iExplorer :: TODO download file</h1>
+			<div id="bcs-container"></div>
 		</div>
 	</header>
 
 	<main>
-		<div class="container">			
-			<ul class="files" id="files"></ul>
+		<div class="container">
+			<div id="dir-container"></div>
 		</div>
 	</main>
 
 	<footer>
 		<div class="container">
-			<ul class="bmenu">
-				<li id="mnu-home"><span class="material-symbols-outlined">home</span>Home</li>
-				<li id="mnu-upload"><span class="material-symbols-outlined">publish</span>UpLoad</li>
-				<li id="mnu-delete"><span class="material-symbols-outlined">delete</span>Excluir</li>
-				<li id="mnu-back"><span class="material-symbols-outlined">arrow_back</span>Voltar</li>
-			</ul>
+			<div id="bmu-container"></div>
 		</div>
 	</footer>
-
-	<div class="vwb-box">
-		<div class="vwb-title">
-			<h3></h3>
-			<span class="material-symbols-outlined">close</span>
-		</div>
-		<video src="" controls autoplay></video>
-		<audio controls autoplay src=""></audio>
-		<img src="">
-	</div>
+	<div id="vbox-container"></div>
 </body>
 
 </html>
