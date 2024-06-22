@@ -34,14 +34,6 @@ header {
 	padding: 0.5rem 0;
 }
 
-header .container {
-	display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
 header h1 {
 	font-size: 1.4rem;
     color: inherit;

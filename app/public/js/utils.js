@@ -27,7 +27,7 @@ export const __glass = (a = true) => {
 	if (a === false) return __('.__glass').classList.remove('on')
 	let g = __('.__glass')
 	if (!g) {
-		let b = __c('div', { class: '__glass' }, __c('img', { src: "/asset/img/l.gif"}))
+		let b = __c('div', { class: '__glass' }, __c('img', { src: "/asset/img/l.gif", alt: 'loading'}))
 		document.body.appendChild(b)
 		setTimeout(() => b.classList.add('on'), 200)
 		return

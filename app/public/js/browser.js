@@ -2,10 +2,12 @@ import { __, __e, __c, __glass } from "/asset/js/utils.js"
 import Directory from "/asset/js/directory.js"
 import ViewBox from "/asset/js/viewbox.js"
 
-class BrowserClass {
+export default class BrowserClass {
 
-	eBreadcrumb = null
 	eContainer = null
+	eTitle = null
+	eMenu = null
+	eBreadcrumb = null
 
 	bMax = 70
 
@@ -24,17 +26,28 @@ class BrowserClass {
 	constructor() {
 		__glass()
 		this.domain = location.origin
-		this.eContainer = __('#bcs-container')
+
+		this.eContainer = __('#hdr-container')
+		this.eTitle = __c('h1', {})
+		this.eMenu = __c('span', { class: 'top-menu material-symbols-outlined', id: 'top-menu' }, 'menu')
 		this.eBreadcrumb = __c('ul', { id: 'breadcrumbs', class: 'breadcrumbs' })
+
+		this.eTitle.onclick = () => this.goHome()
+		this.eMenu.onclick = () => this.showMenu()
 	}
 
 	mount() {
 		this.eContainer.innerHTML = ''
-		this.eContainer.append(this.eBreadcrumb)
+		this.eTitle.innerHTML = App.title
+
+		const top = __c('div', { class: 'hdr-top', id: 'hdr-top' })
+		top.append(this.eTitle, this.eMenu)
+
+		this.eContainer.append(top, this.eBreadcrumb)
 		this.scan()
 
 		setTimeout(() => {
-			this.eBreadcrumb.classList.add('on')
+			this.eContainer.classList.add('on')
 		}, 200)
 	}
 
@@ -58,7 +71,8 @@ class BrowserClass {
 				d.error === false &&
 				d.data) {
 				this.data = { dir: d.data.dir ?? [], file: d.data.file ?? [] }
-				this.path = d.data.path ? d.data.path.replace(/^\/|\/$/g, '').split('/') : []
+				this.path = d.data.path ? d.data.path.replace(/^\/|\/$/g, '') : ''
+				this.path = this.path == '' ? [] : this.path.split('/')
 
 				// New Directory 
 				this.Directory = new Directory(this)
@@ -82,22 +96,22 @@ class BrowserClass {
 	build() {
 		this.eBreadcrumb.innerHTML = ''
 		
-		if (this.path.length > 0) { 
+		if (this.path.length > 0) {
 			const back = __c('li', {'data-path': '{back}'}, 
 				__c('span', { class: 'material-symbols-outlined' }, 'arrow_back'))
 			back.onclick = () => this.goBack()
 			this.eBreadcrumb.append(back)
 		}
 		
-		let home = __c('li', {'data-path': '{home}'},
-				__c('span', { class: 'material-symbols-outlined' }, 'home'))
-		home.onclick = () => this.goHome()
-		this.eBreadcrumb.append(home)
+		// let home = __c('li', {'data-path': '{home}'},
+		// 		__c('span', { class: 'material-symbols-outlined' }, 'home'))
+		// home.onclick = () => this.goHome()
+		// this.eBreadcrumb.append(home)
 
-		const start = this.bcumb(this.bMax)
+		const start = this.#calcLen()
 		if (start > 0) {			
 			let plus = __c('li', {'data-path': '{+}'},
-					__c('span', { class: 'material-symbols-outlined' }, 'add'))
+				__c('span', { class: 'material-symbols-outlined' }, 'more_horiz'))
 			plus.onclick = () => this.goPlus()
 			this.eBreadcrumb.append(plus)
 		}
@@ -113,13 +127,16 @@ class BrowserClass {
 		this.eContainer.append(this.eBreadcrumb)
 	}
 
-	bcumb () {
+	#calcLen () {
 		const l = this.path.length
 		for (let i = l; i >= 0; i--) {
-			let d = this.path.slice(l - i)
-			if (d.join(' / ').length <= this.bMax) return (l - i)
+			if (this.path.slice(l - i).join(' / ').length <= this.bMax) return (l - i)
 		}
 		return 0
+	}
+
+	showMenu() {
+		alert('TODO: Show Menu!')
 	}
 
 	goBack() {
@@ -173,6 +190,3 @@ class BrowserClass {
 	}
 
 }
-
-const browser = new BrowserClass()
-export default browser

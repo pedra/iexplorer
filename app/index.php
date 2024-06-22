@@ -21,6 +21,10 @@ include_once __DIR__ . "/inc/start.php";
 		Let's build a beautiful home media center
  */
 
+// Service Worker only
+ if($_SERVER['REQUEST_URI'] == '/sw.js')
+	download(PATH_ROOT . '/sw.js', false);
+
 // ROUTER ----------------------------------------------------------------------
 (new Lib\Router())
 	->get('/', 				'\Module\Page', 'home')

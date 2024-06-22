@@ -5,7 +5,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>iExplorer</title>
-	<link rel="shortcut icon" href="/asset/favicon.ico" type="image/x-icon">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/asset/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/asset/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/asset/icon/favicon-16x16.png">
+	<link rel="manifest" href="/asset/icon/site.webmanifest">
+	<link rel="mask-icon" href="/asset/icon/safari-pinned-tab.svg" color="#69008c">
+	<link rel="shortcut icon" href="/asset/icon/favicon.ico">
+
+	<meta name="apple-mobile-web-app-title" content="iExplorer">
+	<meta name="application-name" content="iExplorer">
+	<meta name="msapplication-TileColor" content="#69008c">
+	<meta name="msapplication-config" content="/asset/icon/browserconfig.xml">
+	<meta name="theme-color" content="#ffff00">
+
+	<!-- <link rel="shortcut icon" href="/asset/favicon.ico" type="image/x-icon"> -->
 	<link rel="stylesheet" href="/asset/css/style.css">
 	<script src="/asset/js/app.js" defer type="module"></script>
 </head>
@@ -13,8 +27,7 @@
 <body>
 	<header>
 		<div class="container">
-			<h1>iExplorer :: TODO download file</h1>
-			<div id="bcs-container"></div>
+			<div class="hdr-container" id="hdr-container"></div>
 		</div>
 	</header>
 
@@ -24,11 +37,11 @@
 		</div>
 	</main>
 
-	<footer>
+	<!-- <footer>
 		<div class="container">
 			<div id="bmu-container"></div>
 		</div>
-	</footer>
+	</footer> -->
 	<div id="vbox-container"></div>
 </body>
 

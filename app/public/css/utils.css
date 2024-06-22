@@ -17,4 +17,5 @@
 	transition: 3s;
 	z-index: 20000;
 	backdrop-filter: blur(26px);
+	-webkit-backdrop-filter:blur(26px);
 }
